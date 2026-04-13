@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estantería Vencedores – Soluciones Industriales</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #F29000;
+    --orange-light: #FFAF30;
+    --orange-dark: #C47200;
+    --blue: #1A4B8C;
+    --blue-light: #2563B0;
+    --black: #0A0A0A;
+    --dark: #111318;
+    --dark2: #1A1D24;
+    --dark3: #222630;
+    --white: #FFFFFF;
+    --gray: #8A8E9A;
+    --gray-light: #F4F5F7;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--dark);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 70px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(242,144,0,0.2);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .nav-logo-icon {
+    width: 42px; height: 42px;
+    background: var(--orange);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; color: var(--black);
+  }
+
+  .nav-brand {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700; letter-spacing: 1px;
+    color: var(--white); line-height: 1.1;
+  }
+
+  .nav-brand span { color: var(--orange); display: block; font-size: 11px; letter-spacing: 3px; font-weight: 400; }
+
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight: 600; letter-spacing: 2px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--orange); }
+
+  .nav-cta {
+    background: var(--orange);
+    color: var(--black) !important;
+    padding: 10px 22px;
+    border-radius: 3px;
+    font-weight: 700 !important;
+    letter-spacing: 1.5px !important;
+  }
+
+  .nav-cta:hover { background: var(--orange-light); color: var(--black) !important; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 100px 5vw 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(135deg, rgba(26,75,140,0.15) 0%, transparent 50%),
+      linear-gradient(225deg, rgba(242,144,0,0.08) 0%, transparent 50%);
+  }
+
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(242,144,0,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(242,144,0,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-content { position: relative; z-index: 2; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(242,144,0,0.15);
+    border: 1px solid rgba(242,144,0,0.4);
+    padding: 6px 16px; border-radius: 2px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 600; letter-spacing: 3px;
+    color: var(--orange); text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--orange); border-radius: 50%;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 7vw, 90px);
+    line-height: 0.92;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+
+  .hero-title .accent { color: var(--orange); display: block; }
+
+  .hero-subtitle {
+    font-size: 17px; font-weight: 300; line-height: 1.7;
+    color: rgba(255,255,255,0.65);
+    max-width: 460px; margin-bottom: 44px;
+  }
+
+  .hero-actions { display: flex; gap: 16px; align-items: center; }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--orange); color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; text-decoration: none;
+    padding: 16px 32px; border-radius: 3px;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; text-decoration: none;
+    padding: 15px 30px; border-radius: 3px;
+    border: 1px solid rgba(255,255,255,0.25);
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
+
+  .hero-visual {
+    position: relative; z-index: 2;
+    display: flex; justify-content: center; align-items: center;
+  }
+
+  .hero-shelf-diagram {
+    width: 100%; max-width: 500px;
+    position: relative;
+  }
+
+  /* Big orange V */
+  .hero-v {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 340px; line-height: 1;
+    color: rgba(242,144,0,0.06);
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .stats-row {
+    display: flex; gap: 48px;
+    margin-top: 52px; padding-top: 36px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .stat-item { }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px; color: var(--orange); line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-size: 12px; color: rgba(255,255,255,0.5);
+    letter-spacing: 1px; text-transform: uppercase; margin-top: 4px;
+    display: block;
+  }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 100px 5vw; }
+
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 600; letter-spacing: 4px;
+    color: var(--orange); text-transform: uppercase;
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .section-tag::before {
+    content: ''; display: block; width: 32px; height: 2px;
+    background: var(--orange);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1; color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .section-title .accent { color: var(--orange); }
+
+  .section-desc {
+    font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.55);
+    max-width: 520px; line-height: 1.7;
+  }
+
+  /* ─── PRODUCTOS ─── */
+  #productos { background: var(--dark2); }
+
+  .section-header { margin-bottom: 60px; }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+  }
+
+  .product-card {
+    background: var(--dark3);
+    padding: 44px 36px;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    transition: background 0.3s;
+  }
+
+  .product-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: var(--orange);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .product-card:hover::after { transform: scaleX(1); }
+  .product-card:hover { background: #252930; }
+
+  .product-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px; color: rgba(242,144,0,0.08);
+    position: absolute; top: 16px; right: 24px;
+    line-height: 1; user-select: none;
+  }
+
+  .product-icon {
+    width: 52px; height: 52px;
+    background: rgba(242,144,0,0.12);
+    border: 1px solid rgba(242,144,0,0.3);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .product-icon svg { width: 28px; height: 28px; }
+
+  .product-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px; font-weight: 700; letter-spacing: 1px;
+    color: var(--white); text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .product-desc {
+    font-size: 14px; color: rgba(255,255,255,0.5);
+    line-height: 1.7; margin-bottom: 24px;
+  }
+
+  .product-spec {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(242,144,0,0.1);
+    border: 1px solid rgba(242,144,0,0.2);
+    padding: 6px 14px; border-radius: 2px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 600; color: var(--orange);
+    letter-spacing: 1px;
+  }
+
+  /* ─── MEDIDAS ─── */
+  #medidas { background: var(--dark); }
+
+  .medidas-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+
+  .medidas-visual {
+    position: relative;
+  }
+
+  .shelf-svg-container {
+    width: 100%;
+    background: var(--dark2);
+    border: 1px solid rgba(242,144,0,0.15);
+    border-radius: 8px;
+    padding: 40px;
+    display: flex; justify-content: center;
+  }
+
+  .medidas-list { }
+
+  .medida-item {
+    display: flex; align-items: flex-start; gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .medida-item:last-child { border-bottom: none; }
+
+  .medida-icon-wrap {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: rgba(26,75,140,0.3);
+    border: 1px solid rgba(26,75,140,0.6);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .medida-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 3px;
+    color: rgba(255,255,255,0.4); text-transform: uppercase;
+    margin-bottom: 6px; display: block;
+  }
+
+  .medida-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; color: var(--white); line-height: 1;
+    display: block;
+  }
+
+  .medida-value span { color: var(--orange); }
+
+  /* ─── BENEFICIOS ─── */
+  #beneficios { background: var(--dark2); }
+
+  .beneficios-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+  }
+
+  .beneficio-card {
+    background: var(--dark3);
+    padding: 40px 36px;
+    display: flex; gap: 24px;
+    align-items: flex-start;
+    transition: background 0.2s;
+  }
+
+  .beneficio-card:hover { background: #252930; }
+
+  .beneficio-letter {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px; color: var(--orange);
+    line-height: 1; flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  .beneficio-text h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 700; letter-spacing: 1px;
+    color: var(--white); text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .beneficio-text p {
+    font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7;
+  }
+
+  /* ─── CTA STRIP ─── */
+  .cta-strip {
+    background: var(--orange);
+    padding: 80px 5vw;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 40px;
+  }
+
+  .cta-strip-text h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(32px, 4vw, 52px); color: var(--black);
+    line-height: 1; margin-bottom: 8px;
+  }
+
+  .cta-strip-text p {
+    font-size: 16px; color: rgba(0,0,0,0.6); max-width: 480px;
+  }
+
+  .btn-dark {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--black); color: var(--orange);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; text-decoration: none;
+    padding: 18px 36px; border-radius: 3px;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .btn-dark:hover { background: var(--dark2); transform: translateY(-2px); }
+
+  /* ─── CONTACTO ─── */
+  #contacto { background: var(--dark); }
+
+  .contacto-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: start;
+  }
+
+  .contact-cards {
+    display: flex; flex-direction: column; gap: 16px;
+    margin-top: 40px;
+  }
+
+  .contact-card {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 6px;
+    padding: 24px 28px;
+    display: flex; align-items: center; gap: 20px;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .contact-card:hover {
+    border-color: rgba(242,144,0,0.4);
+    background: rgba(242,144,0,0.05);
+  }
+
+  .contact-card-icon {
+    width: 48px; height: 48px; flex-shrink: 0;
+    background: rgba(242,144,0,0.12);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+
+  .contact-card-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 2px;
+    color: rgba(255,255,255,0.35); text-transform: uppercase;
+    display: block; margin-bottom: 4px;
+  }
+
+  .contact-card-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; font-weight: 600; color: var(--white);
+    display: block;
+  }
+
+  /* form */
+  .form-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px; color: var(--white); margin-bottom: 28px;
+  }
+
+  .form-group { margin-bottom: 20px; }
+
+  .form-group label {
+    display: block;
+    font-size: 12px; font-weight: 600; letter-spacing: 2px;
+    color: rgba(255,255,255,0.4); text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    padding: 14px 18px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px; color: var(--white);
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--orange);
+  }
+
+  .form-group select option { background: var(--dark2); }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--black);
+    padding: 48px 5vw;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(242,144,0,0.2);
+  }
+
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; color: var(--white); letter-spacing: 2px;
+  }
+
+  .footer-brand span { color: var(--orange); }
+
+  .footer-copy {
+    font-size: 13px; color: rgba(255,255,255,0.3);
+  }
+
+  /* ─── SHELF SVG ─── */
+  .shelf-svg { width: 280px; height: 320px; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; text-align: center; }
+    .hero-subtitle { max-width: 100%; }
+    .hero-actions { justify-content: center; flex-wrap: wrap; }
+    .hero-visual { display: none; }
+    .stats-row { gap: 28px; }
+    .medidas-layout, .contacto-layout { grid-template-columns: 1fr; }
+    .beneficios-grid { grid-template-columns: 1fr; }
+    .cta-strip { flex-direction: column; text-align: center; }
+    nav .nav-links { display: none; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">V</div>
+    <div class="nav-brand">
+      ESTANTERÍA VENCEDORES
+      <span>SOLUCIONES INDUSTRIALES</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#medidas">Medidas</a></li>
+    <li><a href="#beneficios">Beneficios</a></li>
+    <li><a href="#contacto" class="nav-cta">Cotizar</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Bogotá, Colombia · Desde el primer proyecto</div>
+    <h1 class="hero-title">
+      RESISTENCIA<br>
+      <span class="accent">SIN<br>LÍMITES</span>
+    </h1>
+    <p class="hero-subtitle">
+      Estantería industrial de alta resistencia para bodegas, almacenes, talleres y negocios logísticos. Diseños personalizados, acabados duraderos, entrega garantizada.
+    </p>
+    <div class="hero-actions">
+      <a href="https://wa.me/573103010484" class="btn-primary">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <a href="#productos" class="btn-secondary">Ver productos →</a>
+    </div>
+    <div class="stats-row">
+      <div class="stat-item">
+        <span class="stat-num">500kg</span>
+        <span class="stat-label">Por nivel (semipesada)</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">2T</span>
+        <span class="stat-label">Por nivel (pesada)</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">10m</span>
+        <span class="stat-label">Altura máxima</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-v">V</div>
+    <svg class="shelf-svg" viewBox="0 0 280 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Postes laterales -->
+      <rect x="18" y="20" width="14" height="280" rx="2" fill="#1A4B8C"/>
+      <rect x="248" y="20" width="14" height="280" rx="2" fill="#1A4B8C"/>
+      <!-- Postes centro -->
+      <rect x="133" y="20" width="8" height="280" rx="1" fill="#1A5090" opacity="0.6"/>
+      <!-- Travesaños horizontales -->
+      <rect x="18" y="20" width="244" height="16" rx="2" fill="#F29000"/>
+      <rect x="18" y="114" width="244" height="14" rx="2" fill="#F29000"/>
+      <rect x="18" y="208" width="244" height="14" rx="2" fill="#F29000"/>
+      <rect x="18" y="290" width="244" height="10" rx="2" fill="#F29000"/>
+      <!-- Pernos decorativos -->
+      <circle cx="32" cy="28" r="4" fill="#FFAF30"/>
+      <circle cx="248" cy="28" r="4" fill="#FFAF30"/>
+      <circle cx="32" cy="121" r="4" fill="#FFAF30"/>
+      <circle cx="248" cy="121" r="4" fill="#FFAF30"/>
+      <circle cx="32" cy="215" r="4" fill="#FFAF30"/>
+      <circle cx="248" cy="215" r="4" fill="#FFAF30"/>
+      <!-- Cajas nivel 1 -->
+      <rect x="28" y="40" width="68" height="70" rx="3" fill="#1A4B8C" opacity="0.7"/>
+      <rect x="104" y="55" width="72" height="55" rx="3" fill="#1A4B8C" opacity="0.5"/>
+      <rect x="184" y="42" width="58" height="68" rx="3" fill="#1A4B8C" opacity="0.6"/>
+      <!-- Cajas nivel 2 -->
+      <rect x="28" y="133" width="50" height="73" rx="3" fill="#C47200" opacity="0.5"/>
+      <rect x="86" y="148" width="84" height="58" rx="3" fill="#1A4B8C" opacity="0.4"/>
+      <rect x="178" y="136" width="64" height="70" rx="3" fill="#C47200" opacity="0.4"/>
+      <!-- Cajas nivel 3 -->
+      <rect x="28" y="228" width="76" height="58" rx="3" fill="#1A4B8C" opacity="0.5"/>
+      <rect x="112" y="234" width="60" height="52" rx="3" fill="#C47200" opacity="0.6"/>
+      <rect x="180" y="228" width="62" height="58" rx="3" fill="#1A4B8C" opacity="0.4"/>
+      <!-- Brillo diagonal -->
+      <line x1="18" y1="20" x2="262" y2="300" stroke="rgba(255,255,255,0.04)" stroke-width="60"/>
+    </svg>
+  </div>
+</section>
+
+<!-- PRODUCTOS -->
+<section id="productos">
+  <div class="section-header">
+    <div class="section-tag">Catálogo</div>
+    <h2 class="section-title">TIPOS DE <span class="accent">ESTANTERÍA</span></h2>
+    <p class="section-desc">Estructuras modulares adaptadas a cualquier necesidad de carga, altura y espacio disponible.</p>
+  </div>
+
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-number">01</div>
+      <div class="product-icon">
+        <svg viewBox="0 0 28 28" fill="none">
+          <rect x="2" y="4" width="24" height="3" rx="1" fill="#F29000"/>
+          <rect x="2" y="11" width="24" height="3" rx="1" fill="#F29000"/>
+          <rect x="2" y="18" width="24" height="3" rx="1" fill="#F29000"/>
+          <rect x="2" y="4" width="3" height="20" rx="1" fill="#1A4B8C"/>
+          <rect x="23" y="4" width="3" height="20" rx="1" fill="#1A4B8C"/>
+        </svg>
+      </div>
+      <div class="product-name">Estantería Semipesada</div>
+      <p class="product-desc">Ideal para almacenes de mediana exigencia. Estructura robusta con facilidad de montaje y reconfiguración.</p>
+      <span class="product-spec">Hasta 500 kg / nivel</span>
+    </div>
+
+    <div class="product-card">
+      <div class="product-number">02</div>
+      <div class="product-icon">
+        <svg viewBox="0 0 28 28" fill="none">
+          <rect x="2" y="4" width="24" height="4" rx="1" fill="#F29000"/>
+          <rect x="2" y="12" width="24" height="4" rx="1" fill="#F29000"/>
+          <rect x="2" y="20" width="24" height="4" rx="1" fill="#F29000"/>
+          <rect x="2" y="4" width="4" height="22" rx="1" fill="#1A4B8C"/>
+          <rect x="22" y="4" width="4" height="22" rx="1" fill="#1A4B8C"/>
+        </svg>
+      </div>
+      <div class="product-name">Estantería Pesada</div>
+      <p class="product-desc">Para cargas industriales de alta exigencia. Soportes reforzados con capacidad estructural máxima.</p>
+      <span class="product-spec">Hasta 2.000 kg / nivel</span>
+    </div>
+
+    <div class="product-card">
+      <div class="product-number">03</div>
+      <div class="product-icon">
+        <svg viewBox="0 0 28 28" fill="none">
+          <rect x="4" y="6" width="20" height="2" rx="1" fill="#F29000"/>
+          <rect x="4" y="13" width="20" height="2" rx="1" fill="#F29000"/>
+          <rect x="4" y="20" width="20" height="2" rx="1" fill="#F29000"/>
+          <rect x="4" y="6" width="2" height="16" fill="#1A4B8C"/>
+          <rect x="22" y="6" width="2" height="16" fill="#1A4B8C"/>
+          <rect x="13" y="6" width="2" height="16" fill="#1A4B8C" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="product-name">Estantería Metálica</div>
+      <p class="product-desc">Versatilidad total para hogar, taller o bodega. Acabado anticorrosivo con resistencia a climas extremos.</p>
+      <span class="product-spec">Cargas ligeras y medias</span>
+    </div>
+
+    <div class="product-card">
+      <div class="product-number">04</div>
+      <div class="product-icon">
+        <svg viewBox="0 0 28 28" fill="none">
+          <path d="M4 8h20v2H4zM4 14h20v2H4zM4 20h20v2H4z" fill="#F29000"/>
+          <circle cx="7" cy="9" r="2" fill="#1A4B8C"/>
+          <circle cx="7" cy="15" r="2" fill="#1A4B8C"/>
+          <circle cx="7" cy="21" r="2" fill="#1A4B8C"/>
+          <circle cx="21" cy="9" r="2" fill="#1A4B8C"/>
+          <circle cx="21" cy="15" r="2" fill="#1A4B8C"/>
+          <circle cx="21" cy="21" r="2" fill="#1A4B8C"/>
+        </svg>
+      </div>
+      <div class="product-name">Soluciones Versátiles</div>
+      <p class="product-desc">Diseño modular y personalizable. Adaptable a cualquier espacio con posibilidades de ampliación futura.</p>
+      <span class="product-spec">100% personalizable</span>
+    </div>
+  </div>
+</section>
+
+<!-- MEDIDAS -->
+<section id="medidas">
+  <div class="medidas-layout">
+    <div>
+      <div class="section-tag">Especificaciones</div>
+      <h2 class="section-title">MEDIDAS <span class="accent">A TU MEDIDA</span></h2>
+      <p class="section-desc">Cada proyecto es único. Fabricamos según tus dimensiones exactas para aprovechar al máximo tu espacio.</p>
+
+      <div class="medidas-list" style="margin-top:40px;">
+        <div class="medida-item">
+          <div class="medida-icon-wrap">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#1A9BE0" stroke-width="2">
+              <path d="M8 3v18M16 3v18M3 8h18M3 16h18"/>
+            </svg>
+          </div>
+          <div>
+            <span class="medida-label">Alto</span>
+            <span class="medida-value"><span>2</span> – <span>10</span> m</span>
+          </div>
+        </div>
+        <div class="medida-item">
+          <div class="medida-icon-wrap">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#1A9BE0" stroke-width="2">
+              <path d="M3 12h18M3 6l18 6-18 6"/>
+            </svg>
+          </div>
+          <div>
+            <span class="medida-label">Ancho</span>
+            <span class="medida-value"><span>1</span> – <span>3</span> m</span>
+          </div>
+        </div>
+        <div class="medida-item">
+          <div class="medida-icon-wrap">
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#1A9BE0" stroke-width="2">
+              <path d="M4 4l16 16M4 20L20 4"/>
+            </svg>
+          </div>
+          <div>
+            <span class="medida-label">Fondo</span>
+            <span class="medida-value"><span>40 cm</span> – <span>1</span> m</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="shelf-svg-container">
+      <svg width="260" height="300" viewBox="0 0 260 300" fill="none">
+        <!-- Postes -->
+        <rect x="20" y="10" width="12" height="270" rx="2" fill="#1A4B8C"/>
+        <rect x="228" y="10" width="12" height="270" rx="2" fill="#1A4B8C"/>
+        <!-- Niveles -->
+        <rect x="20" y="10" width="220" height="12" rx="2" fill="#F29000"/>
+        <rect x="20" y="100" width="220" height="12" rx="2" fill="#F29000"/>
+        <rect x="20" y="190" width="220" height="12" rx="2" fill="#F29000"/>
+        <rect x="20" y="275" width="220" height="8" rx="2" fill="#F29000"/>
+        <!-- Carga nivel 1 -->
+        <rect x="30" y="26" width="60" height="70" rx="2" fill="#1A4B8C" opacity="0.6"/>
+        <rect x="100" y="30" width="60" height="65" rx="2" fill="#C47200" opacity="0.5"/>
+        <rect x="170" y="26" width="60" height="70" rx="2" fill="#1A4B8C" opacity="0.4"/>
+        <!-- Carga nivel 2 -->
+        <rect x="30" y="118" width="80" height="66" rx="2" fill="#C47200" opacity="0.5"/>
+        <rect x="120" y="122" width="100" height="62" rx="2" fill="#1A4B8C" opacity="0.5"/>
+        <!-- Carga nivel 3 -->
+        <rect x="30" y="206" width="50" height="62" rx="2" fill="#1A4B8C" opacity="0.5"/>
+        <rect x="88" y="210" width="72" height="58" rx="2" fill="#C47200" opacity="0.4"/>
+        <rect x="168" y="206" width="62" height="62" rx="2" fill="#1A4B8C" opacity="0.6"/>
+
+        <!-- Flechas de medida - ALTO -->
+        <line x1="6" y1="10" x2="6" y2="280" stroke="#F29000" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <polygon points="6,10 3,18 9,18" fill="#F29000"/>
+        <polygon points="6,280 3,272 9,272" fill="#F29000"/>
+        <text x="1" y="152" fill="#F29000" font-size="9" font-family="Barlow Condensed,sans-serif" font-weight="600" transform="rotate(-90, 1, 152)" text-anchor="middle">ALTO: 2–10m</text>
+
+        <!-- Flechas de medida - ANCHO -->
+        <line x1="20" y1="293" x2="240" y2="293" stroke="#F29000" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <polygon points="20,293 28,290 28,296" fill="#F29000"/>
+        <polygon points="240,293 232,290 232,296" fill="#F29000"/>
+        <text x="130" y="302" fill="#F29000" font-size="9" font-family="Barlow Condensed,sans-serif" font-weight="600" text-anchor="middle">ANCHO: 1–3m</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFICIOS -->
+<section id="beneficios">
+  <div class="section-header">
+    <div class="section-tag">¿Por qué elegirnos?</div>
+    <h2 class="section-title">NUESTROS <span class="accent">BENEFICIOS</span></h2>
+    <p class="section-desc">Más de una solución — una alianza estratégica para optimizar tu operación logística.</p>
+  </div>
+
+  <div class="beneficios-grid">
+    <div class="beneficio-card">
+      <div class="beneficio-letter">A</div>
+      <div class="beneficio-text">
+        <h3>Estabilidad estructural</h3>
+        <p>Diseño ingenieril que garantiza máxima resistencia ante cargas estáticas y dinámicas, sin deformación bajo uso continuo.</p>
+      </div>
+    </div>
+    <div class="beneficio-card">
+      <div class="beneficio-letter">B</div>
+      <div class="beneficio-text">
+        <h3>Fácil montaje</h3>
+        <p>Sistema modular que se ensambla y desmonta sin herramienta especializada, ahorrando tiempo y costo de instalación.</p>
+      </div>
+    </div>
+    <div class="beneficio-card">
+      <div class="beneficio-letter">C</div>
+      <div class="beneficio-text">
+        <h3>Acabados duraderos</h3>
+        <p>Recubrimiento anticorrosivo tratado para resistir humedad, calor y condiciones exigentes de bodega o taller.</p>
+      </div>
+    </div>
+    <div class="beneficio-card">
+      <div class="beneficio-letter">D</div>
+      <div class="beneficio-text">
+        <h3>Diseño a medida</h3>
+        <p>Cada estructura se fabrica según las dimensiones y necesidades específicas del cliente. Nada estándar, todo personalizado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<div class="cta-strip">
+  <div class="cta-strip-text">
+    <h2>¿LISTO PARA OPTIMIZAR TU BODEGA?</h2>
+    <p>Solicita tu cotización sin costo. Asesoramos tu proyecto desde el primer contacto.</p>
+  </div>
+  <a href="https://wa.me/573103010484?text=Hola%2C%20quiero%20solicitar%20una%20cotizaci%C3%B3n%20de%20estanter%C3%ADa" class="btn-dark" target="_blank">
+    Cotizar por WhatsApp →
+  </a>
+</div>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contacto-layout">
+    <div>
+      <div class="section-tag">Contacto</div>
+      <h2 class="section-title">HABLEMOS DE <span class="accent">TU PROYECTO</span></h2>
+      <p class="section-desc">Cuéntanos qué necesitas y te damos una solución en minutos.</p>
+
+      <div class="contact-cards">
+        <a href="https://wa.me/573103010484" class="contact-card" target="_blank">
+          <div class="contact-card-icon">📱</div>
+          <div>
+            <span class="contact-card-label">WhatsApp</span>
+            <span class="contact-card-value">310 301 0484</span>
+          </div>
+        </a>
+        <a href="mailto:estanteriavencedores@gmail.com" class="contact-card">
+          <div class="contact-card-icon">✉️</div>
+          <div>
+            <span class="contact-card-label">Correo</span>
+            <span class="contact-card-value">estanteriavencedores@gmail.com</span>
+          </div>
+        </a>
+        <div class="contact-card">
+          <div class="contact-card-icon">📍</div>
+          <div>
+            <span class="contact-card-label">Ubicación</span>
+            <span class="contact-card-value">Bogotá, Colombia</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="form-title">SOLICITAR COTIZACIÓN</div>
+      <form onsubmit="enviarWA(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" id="nombre" placeholder="Tu nombre" required>
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" id="tel" placeholder="3XX XXX XXXX">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Tipo de estantería</label>
+          <select id="tipo">
+            <option value="">Selecciona...</option>
+            <option>Estantería Semipesada (hasta 500 kg)</option>
+            <option>Estantería Pesada (hasta 2 ton)</option>
+            <option>Estantería Metálica</option>
+            <option>Solución Versátil / Personalizada</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Descripción del proyecto</label>
+          <textarea id="desc" rows="4" placeholder="Cuéntanos sobre tu bodega, dimensiones aproximadas, cantidad de niveles que necesitas..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%; justify-content:center;">
+          Enviar por WhatsApp →
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">ESTANTERÍA <span>VENCEDORES</span></div>
+  <div class="footer-copy">© 2025 Estantería Vencedores · Bogotá, Colombia</div>
+</footer>
+
+<script>
+function enviarWA(e) {
+  e.preventDefault();
+  const n = document.getElementById('nombre').value;
+  const t = document.getElementById('tel').value;
+  const tipo = document.getElementById('tipo').value;
+  const d = document.getElementById('desc').value;
+  let msg = `Hola, quiero solicitar una cotización.\n\n*Nombre:* ${n}\n*Teléfono:* ${t || 'No indicado'}\n*Tipo:* ${tipo || 'No seleccionado'}\n*Proyecto:* ${d || 'Sin descripción'}`;
+  window.open(`https://wa.me/573103010484?text=${encodeURIComponent(msg)}`, '_blank');
+}
+</script>
+
+</body>
+</html>
